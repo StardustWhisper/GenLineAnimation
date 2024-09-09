@@ -16,3 +16,10 @@ http://localhost:3000/signature?name=Hello%20%20World!&background=https://upload
 ```   
 
 ![example](./example.png)
+
+#### Add docker support
+
+```bash
+docker build -t genlineanimation .
+docker run -d -p 3000:3000 genlineanimation
+```
