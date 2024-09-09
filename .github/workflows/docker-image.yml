@@ -34,6 +34,7 @@ jobs:
       - name: Generate tags
         id: generate-tags
         run: |
+          REPO_NAME=$(echo ${{ env.GITHUB_REPOSITORY }} | awk -F '/' '{print $2}')
           echo "REPO_NAME=$(echo ${{ env.GITHUB_REPOSITORY }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
           echo "TAG_SHA=${{ github.sha }}" >> $GITHUB_ENV
           echo "TAG_LATEST=latest" >> $GITHUB_ENV
