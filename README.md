@@ -1,109 +1,17 @@
-### AboutProject
-![Hello Everyone](
-https://jrenc.azurewebsites.net/api/signature?code=zHZRCCItO-yB8t7d2KyitELFDwADnXIotkeeIQL3juyNAzFucnyrWA%3D%3D&name=Hello%20Everyone&animate=true&speed=1&color=%230000ff)
-![IAMJrenc](
-https://jrenc.azurewebsites.net/api/signature?code=zHZRCCItO-yB8t7d2KyitELFDwADnXIotkeeIQL3juyNAzFucnyrWA%3D%3D&name=I%20am%20Jrenc&animate=true&speed=1&color=%230000ff)
+### About original Project readme.md
+https://github.com/jrenc2002/GenLineAnimation-Server/blob/master/README.md
 
----
+#### For this forked project, i'm adding a new feature to allow the user to add background image to the animation.
 
-# GenLineAnimation API
-
-This project is a simple Node.js API that generates SVG digital signatures based on provided text input. The signatures can be customized with various options, including animation, speed, and color.
-
-## Features
-
-- **SVG Generation:** Creates SVG images of text with customizable stroke color.
-- **Animation:** Supports animated drawing of SVG paths.
-- **Caching:** Uses in-memory caching to speed up repeated requests with the same parameters.
-- **Customizable:** Allows customization of stroke color, animation speed, and whether the signature is animated.
-
-## Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/jrenc2002/GenLineAnimation-Server.git
-   cd GenLineAnimation-Server
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-## Usage
-
-1. **Start the server:**
-   ```bash
-   npm start
-   ```
-   The server will start on `http://localhost:3000`.
-
-2. **Make API requests:**
-   The API provides an endpoint to generate digital signatures. You can access it with the following parameters:
-
-   - `name`: The text to be converted into a signature (default: "Signature").
-   - `animate`: Whether to animate the drawing of the signature (default: false).
-   - `speed`: The speed of the animation (default: 1).
-   - `color`: The color of the stroke (default: "#000000").
-
-   Example request:
-   ```bash
-   curl "http://localhost:3000/signature?name=JohnDoe&animate=true&speed=1&color=%230000ff"
-   ```
-
-3. **Example API Usage:**
-   You can test the deployed API using this URL:
-   ```
-   https://jrenc.azurewebsites.net/api/signature?code=zHZRCCItO-yB8t7d2KyitELFDwADnXIotkeeIQL3juyNAzFucnyrWA%3D%3D&name=Hello%20Everyone&animate=true&speed=1&color=%230000ff
-   ```
-
-## API Endpoints
-
-### `GET /signature`
-Generates an SVG image of a digital signature.
-
-#### Query Parameters:
-
-- **name** (optional): The text to be rendered as a signature.
-- **animate** (optional): Whether to animate the drawing of the signature (`true` or `false`).
-- **speed** (optional): The speed of the animation.
-- **color** (optional): The color of the stroke (hex code format).
-
-#### Response:
-- Content-Type: `image/svg+xml`
-- The SVG content of the generated signature.
-
-## Example Requests
-
-### Basic Request
+#### Useage:
 ```bash
-curl "http://localhost:3000/signature?name=JohnDoe"
+https://localhost:3000/signature?name=John&background=https://example.com/bg.png
 ```
 
-### Animated Signature
+#### Example:
+
 ```bash
-curl "http://localhost:3000/signature?name=JohnDoe&animate=true&speed=2&color=%23FF0000"
-```
+http://localhost:3000/signature?name=Hello%20%20World!&background=https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Castillo_de_Hohenwerfen%2C_Werfen%2C_Austria%2C_2019-05-17%2C_DD_143-149_PAN.jpg/1362px-Castillo_de_Hohenwerfen%2C_Werfen%2C_Austria%2C_2019-05-17%2C_DD_143-149_PAN.jpg&animate=true&speed=2&color=%23FF0000
+```   
 
-### Cached Request
-The server caches generated SVGs for repeated requests with the same parameters, improving performance.
-
-## Deployment
-
-You can deploy this application to Azure Functions or any other Node.js-compatible environment. The Azure Functions setup includes:
-
-- `function.json`: Defines the HTTP trigger for the Azure function.
-- `host.json`: Configures the overall hosting environment for the Azure Functions runtime.
-
-### Azure Function URL Example:
-```
-https://jrenc.azurewebsites.net/api/signature?code=zHZRCCItO-yB8t7d2KyitELFDwADnXIotkeeIQL3juyNAzFucnyrWA%3D%3D&name=JohnDoe&animate=true&speed=1&color=%23000000
-```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request or raise an Issue if you find a bug or have a feature request.
-
-## Thank
-
-Technical realization and inspiration form [@pate1kiran](https://x.com/pate1kiran) and [Signature animation](https://codepen.io/kiranpate1/full/ExBpaeW)
+![example](./example.png)
