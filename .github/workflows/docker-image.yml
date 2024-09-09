@@ -5,7 +5,10 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+    
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
     
 jobs:
   build-and-push:
@@ -34,5 +37,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            azurewhisper/genlineanimation:latest
-            azurewhisper/genlineanimation:${{ github.sha }}
+            ${env.DOCKER_USERNAME}/${env.GITHUB_REPOSITORY}:${{ github.sha }}
+            ${env.DOCKER_USERNAME}/${env.GITHUB_REPOSITORY}:latest
