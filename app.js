@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3030;
 
 // SVG data for uppercase and lowercase letters
 const svgData = {
@@ -236,7 +236,7 @@ const letterMargins = {
     z: "0 -4px 0 -10px"
   }
 };
-function generateSignatureSVG(name, animate = false, animationSpeed = 1, strokeColor = '#000000') {
+function generateSignatureSVG(name, animate = false, animationSpeed = 1, strokeColor = '#000000', backgroundImage = '') {
   let totalWidth = 0;
   const letterHeight = 51;
   
@@ -247,8 +247,14 @@ function generateSignatureSVG(name, animate = false, animationSpeed = 1, strokeC
                     stroke-dashoffset: 0;
                 }
             }
-        </style>
-        <foreignObject width="100%" height="100%">
+        </style>`;
+
+  // 添加背景图片
+  if (backgroundImage) {
+    svgContent += `<image href="${backgroundImage}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>`;
+  }
+  
+  svgContent += `<foreignObject width="100%" height="100%">
         <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; height: 100%; justify-content: center;">`;
   
   const fillColor = 'none';
@@ -302,8 +308,9 @@ app.get('/signature', (req, res) => {
   const animate = req.query.animate === 'true';
   const animationSpeed = parseFloat(req.query.speed) || 1;
   const strokeColor = req.query.color || '#000000';
+  const backgroundImage = req.query.background || ''; // 新增背景图片参数
   
-  const cacheKey = `${name}_${animate}_${animationSpeed}_${strokeColor}`;
+  const cacheKey = `${name}_${animate}_${animationSpeed}_${strokeColor}_${backgroundImage}`;
   
   if (svgCache[cacheKey]) {
     res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 year
@@ -312,7 +319,7 @@ app.get('/signature', (req, res) => {
     return;
   }
   
-  const svg = generateSignatureSVG(name, animate, animationSpeed, strokeColor);
+  const svg = generateSignatureSVG(name, animate, animationSpeed, strokeColor, backgroundImage);
   
   svgCache[cacheKey] = svg;
   
