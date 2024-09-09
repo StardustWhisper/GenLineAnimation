@@ -236,11 +236,11 @@ const letterMargins = {
     z: "0 -4px 0 -10px"
   }
 };
-function generateSignatureSVG(name, animate = false, animationSpeed = 1, strokeColor = '#000000', backgroundImage = '') {
+function generateSignatureSVG(name = 'hello world' , animate = true, animationSpeed = 1, strokeColor = '#000000', backgroundImage = '', width = '100%', height = '100%') {
   let totalWidth = 0;
   const letterHeight = 51;
   
-  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 0 ${letterHeight}">
+  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 0 ${letterHeight}">
         <style>
             @keyframes draw {
                 to {
@@ -251,7 +251,7 @@ function generateSignatureSVG(name, animate = false, animationSpeed = 1, strokeC
 
   // 添加背景图片
   if (backgroundImage) {
-    svgContent += `<image href="${backgroundImage}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>`;
+    svgContent += `<image href="${backgroundImage}" width="${width}" height="${height}" preserveAspectRatio="xMinYMid slice"/>`;
   }
   
   svgContent += `<foreignObject width="100%" height="100%">
@@ -308,9 +308,11 @@ app.get('/signature', (req, res) => {
   const animate = req.query.animate === 'true';
   const animationSpeed = parseFloat(req.query.speed) || 1;
   const strokeColor = req.query.color || '#000000';
-  const backgroundImage = req.query.background || ''; // 新增背景图片参数
+  const backgroundImage = req.query.background || '';
+  const width = req.query.width || '100%'; // 新增width参数
+  const height = req.query.height || '100%'; // 新增height参数
   
-  const cacheKey = `${name}_${animate}_${animationSpeed}_${strokeColor}_${backgroundImage}`;
+  const cacheKey = `${name}_${animate}_${animationSpeed}_${strokeColor}_${backgroundImage}_${width}_${height}`;
   
   if (svgCache[cacheKey]) {
     res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 year
@@ -319,7 +321,7 @@ app.get('/signature', (req, res) => {
     return;
   }
   
-  const svg = generateSignatureSVG(name, animate, animationSpeed, strokeColor, backgroundImage);
+  const svg = generateSignatureSVG(name, animate, animationSpeed, strokeColor, backgroundImage, width, height);
   
   svgCache[cacheKey] = svg;
   

@@ -23,3 +23,9 @@ http://localhost:3000/signature?name=Hello%20%20World!&background=https://upload
 docker build -t genlineanimation .
 docker run -d -p 3000:3000 genlineanimation
 ```
+
+#### if you want to use the docker image, you can use the following command to run the container (Linux/arm64)
+
+```bash
+docker run -d -p 3000:3000 azurewhisper/genlineanimation:1.0
+```

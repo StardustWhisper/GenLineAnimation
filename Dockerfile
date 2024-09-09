@@ -4,7 +4,7 @@ FROM node:20
 # 设置工作目录
 WORKDIR /app
 
-# 复制package.json和package-lock.json（如果存在）
+# 复制package.json和package-lock.json
 COPY package*.json ./
 
 # 安装项目依赖
